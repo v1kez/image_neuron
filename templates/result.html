@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link type="text/css" href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Результат классификации</title>
+    </head>
+<body>
+<div class="telo">
+    <h1>Результат классификации</h1>
+    <p class="p">{{ predicted_label }}</p>
+
+    <br><br>
+
+</div>
+</body>
+</html>
