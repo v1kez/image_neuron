@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask, render_template, request, redirect, url_for
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -44,17 +45,20 @@ def upload_file():
         # Обработка изображения для модели
         img = keras_image.load_img(filepath, target_size=(28, 28), color_mode="grayscale")
         img_array = keras_image.img_to_array(img)
-        img_array = img_array.reshape(1, 784)
-        img_array = 255 - img_array
-        img_array /= 255
+
+        # Изменение формы на (1, 28, 28, 1)
+        img_array = img_array.reshape(1, 28, 28, 1)
+
+        img_array = 255 - img_array  # Инвертирование цветов
+        img_array /= 255  # Нормализация
 
         # Предсказание
         prediction = model.predict(img_array)
         predicted_class = np.argmax(prediction)
 
         # Названия классов Fashion MNIST
-        class_names = ['Футболка', 'Брюки ', 'свитер', 'Платье', 'Пальто ',
-                       'Сандали', 'Рубашка ', 'Кросовки', 'Сумка', 'Ботильоны ']
+        class_names = ['Футболка', 'Брюки ', 'Cвитер', 'Платье', 'Пальто ',
+                       'Сандали', 'Рубашка ', 'Кроcсовки', 'Сумка', 'Ботильоны ']
 
         # Результат
         predicted_label = class_names[predicted_class]
